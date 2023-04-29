@@ -1,4 +1,4 @@
-# M365SATReports
+# M365SATReports (BETA) 
 Microsoft 365 Security Assessment Reports PowerShell betiği Exchange Online organizasyonu içerisinde güvenlik değerlendirmesi yaparak yapınızı daha iyi bir şekilde sıkılaştırmanızı sağlamaktadır. 
 
 ![2023-04-29_22-07-16](https://user-images.githubusercontent.com/53214224/235320149-0af70ee2-a94c-4d7c-a5e3-95f0f624c9f0.png)
