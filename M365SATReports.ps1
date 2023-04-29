@@ -1,3 +1,12 @@
+clear
+
+Write-Host "Mehmet PATLAKYIGIT | Office Apps & Services MVP" -ForegroundColor blue
+Write-Host "https://www.parlakyigit.net/" -ForegroundColor blue
+Write-Host "Twitter:@mparlakyigit" -ForegroundColor blue
+Write-Host "- Microsoft 365 | Security Assessment Reports (M365SAR) Beta -" -ForegroundColor red
+Write-Host "Açıklama : Microsoft 365 Security Assessment Reports PowerShell betiği Exchange Online organizasyonu içerisinde güvenlik değerlendirmesi yaparak yapınızı daha iyi bir şekilde sıkılaştırmanızı sağlamaktadır." -ForegroundColor White
+Write-Host ("+" * 50)
+
 $username = Read-Host -Prompt "Global Admin User Name"
 Read-Host -Prompt "Admin Password" -AsSecureString | ConvertFrom-SecureString | Out-File "./credential.txt"
 $Password = Get-Content "./credential.txt" | ConvertTo-SecureString
@@ -102,8 +111,8 @@ $aciklama_bir=echo 1 | ConvertTo-Html -As Table -PreContent '<table border=0 cel
     <td style="background:#00A0d2;padding:5pt 2pt 5pt 2pt"></td>
     <td width="100%" cellpadding="7px 6px 7px 15px" style="background:#e5f5fa;padding:5pt 4pt 5pt 12pt;word-wrap:break-word">
       <div style="color:#222222;">
-        <span style="color:#222; font-weight:bold;">A��klama:</span>
-        MFA Kullanmayan kullan�c�lar organizasyonunuz i�in tehlike olu�turmaktad�r.
+        <span style="color:#222; font-weight:bold;">Açıklama:</span>
+        MFA Kullanmayan kullanıcılar organizasyonunuz için tehlike oluşturmaktadır.
       </div>
     </td>
   </tr>
@@ -137,8 +146,8 @@ $aciklama_yedi=echo 1 | ConvertTo-Html -As Table -PreContent '<table border=0 ce
     <td style="background:#00A0d2;padding:5pt 2pt 5pt 2pt"></td>
     <td width="100%" cellpadding="7px 6px 7px 15px" style="background:#e5f5fa;padding:5pt 4pt 5pt 12pt;word-wrap:break-word">
       <div style="color:#222222;">
-        <span style="color:#222; font-weight:bold;">A��klama:</span>
-        Shared Mailbox Web �zerinden oturum a�amamas� gerekmektedir. False de�erine sahip bir SharedMailbox oturum a�abiliyor demektir. <br>https://www.parlakyigit.net/shared-mailbox-hesabi-icin-oturum-acmayi-engellemek/
+        <span style="color:#222; font-weight:bold;">Açıklama:</span>
+        Shared Mailbox Web Üzerinden oturum açamaması gerekmektedir. False değerine sahip bir SharedMailbox oturum açabiliyor demektir. <br>https://www.parlakyigit.net/shared-mailbox-hesabi-icin-oturum-acmayi-engellemek/
       </div>
     </td>
   </tr>
@@ -178,7 +187,7 @@ $ModernAuth=Get-OrganizationConfig | Select Name,OAuth* | ConvertTo-Html -As Tab
 $Des='<br><table width="827" border="0">
 <tr>
     <td width="204" height="113"><img src="http://www.parlakyigit.net/wp-content/uploads/2017/04/MVP_Logo_Horizontal_Secondary_Blue288_CMYK_300ppi.png" width="308" height="124" align="left" /></td>
-    <td width="0"><p>Mehmet PARLAKY���T<br>
+    <td width="0"><p>Mehmet PARLAKYİĞİT<br>
       M365 Apps & Services MVP<br>
       <a href="https://www.parlakyigit.net/">www.parlakyigit.net</a><br>
     @mparlakyigit</p></td>
