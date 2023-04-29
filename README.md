@@ -30,7 +30,7 @@ Microsoft 365 Security Assessment Reports PowerShell betiği Exchange Online org
 
 # Microsoft 365 Security Assessment Reports Nasıl çalışır ? 
 
-![2023-04-29_22-07-16](https://user-images.githubusercontent.com/53214224/235320149-0af70ee2-a94c-4d7c-a5e3-95f0f624c9f0.png)
+![2023-04-29_22-48-40](https://user-images.githubusercontent.com/53214224/235321553-f3ae67a9-d1f9-401f-8f43-55674bc0207d.png)
 
 # Microsoft 365 Security Assessment Reports HTML Çıktısı Örneği;
 
