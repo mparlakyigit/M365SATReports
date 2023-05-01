@@ -42,6 +42,8 @@ Not : M365SATReport periyodik olarak belirli aralıklarla güncel sürümü kont
 - PowerShell betiğimiz bizden Global Admin kullanıcı bilgilerimizi, Kullanıcımıza ait parola ve son olarak kullandığımız domain adresini isteyecektir. 
 - Bu işlemlerden sonra biraz bekliyerek raporumuz oluşacaktır. (Bu işlemin süresi kullanıcı sayımızın fazlalığına göre değişiklik gösterecektir.) Rapor otomartik olarak mevcut tarayıımızda açılacaktır.
 
+Not : İşlemi yapacağınız kullanıcıda Global Admin ve Exchange Admin yetkisi olduğundan emin olduktan sonra çalıştırınız. 
+
 Not : PowerShell betiği işlemini bitirdikten sonra rapor açılmazsa betiği çalıştırdığımız dizin içerisinde M365SATReports.html adında bir rapor oluşturacaktır. Çift tıklayarak açabiliriz. 
 
 # Microsoft 365 Security Assessment Reports HTML Çıktı Örneği;
