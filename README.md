@@ -32,6 +32,14 @@ Microsoft 365 Security Assessment Reports PowerShell betiği Microsoft 365 organ
 
 ![2023-04-29_22-48-40](https://user-images.githubusercontent.com/53214224/235321553-f3ae67a9-d1f9-401f-8f43-55674bc0207d.png)
 
+- Öncelikle PowerShell yönetici olarak çalıştıralım.
+- PowerShell üzerinde M365SATReports indirdiğimimiz PowerShell betiğinin bulunduğu dizine geçelim.
+- PowerShell betiğimizi .\M365SATReports.ps1 şeklinde çalıştıralım.
+- PowerShell betiğimiz bizden Global Admin kullanıcı bilgilerimizi, Kullanıcımıza ait parola ve son olarak kullandığımız domain adresini isteyecektir. 
+- Bu işlemlerden sonra biraz bekliyerek raporumuz oluşacaktır. (Bu işlemin süresi kullanıcı sayımızın fazlalığına göre değişiklik gösterecektir.) Rapor otomartik olarak mevcut tarayıımızda açılacaktır.
+
+Not : PowerShell betiği işlemini bitirdikten sonra rapor açılmazsa betiği çalıştırdığımız dizin içerisinde M365SATReports.html adında bir rapor oluşturacaktır. Çift tıklayarak açabiliriz. 
+
 # Microsoft 365 Security Assessment Reports HTML Çıktı Örneği;
 
 ![2023-04-29_22-09-41](https://user-images.githubusercontent.com/53214224/235320188-704e69c4-9955-45a3-b57d-14051984afd8.png)
