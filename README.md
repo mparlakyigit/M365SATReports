@@ -1,4 +1,4 @@
-# M365SATReports (BETA) 
+# M365SAReports (BETA) 
 Microsoft 365 Security Assessment Reports PowerShell betiği Microsoft 365 organizasyonu içerisinde güvenlik değerlendirmesi yaparak yapınızı daha iyi bir şekilde sıkılaştırmanızı sağlamaktadır. 
 
 Not : M365SATReports PowerShell betiğimiz BETA aşamasındadır. Betik geliştirilmeye devam edecektir. Yaptığım güncellemeler ve geliştirmeler sonrası yine GitHub üzerinden belirli aralıklarla güncellenmiş halini indirerek çalıştırabilirsiniz. Böylelikle M365SATReports her çalıştırdığınızda farklı sonuçlarla karşılaşacaksınız. 
