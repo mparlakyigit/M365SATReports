@@ -4,15 +4,18 @@ Write-Host "Mehmet PATLAKYIGIT | Office Apps & Services MVP" -ForegroundColor bl
 Write-Host "https://www.parlakyigit.net/" -ForegroundColor blue
 Write-Host "Twitter:@mparlakyigit" -ForegroundColor blue
 Write-Host "- Microsoft 365 | Security Assessment Reports (M365SAR) Beta -" -ForegroundColor red
-Write-Host "Açıklama : Microsoft 365 Security Assessment Reports PowerShell betiği Exchange Online organizasyonu içerisinde güvenlik değerlendirmesi yaparak yapınızı daha iyi bir şekilde sıkılaştırmanızı sağlamaktadır." -ForegroundColor White
+Write-Host "Açıklama : Microsoft 365 Security Assessment Reports PowerShell betiği Microsoft 365 organizasyonu içerisinde güvenlik değerlendirmesi yaparak yapınızı daha iyi bir şekilde sıkılaştırmanızı sağlamaktadır." -ForegroundColor White
 Write-Host ("+" * 50)
 
 $username = Read-Host -Prompt "Global Admin User Name"
 Read-Host -Prompt "Admin Password" -AsSecureString | ConvertFrom-SecureString | Out-File "./credential.txt"
 $Password = Get-Content "./credential.txt" | ConvertTo-SecureString
 $domainname = Read-Host -Prompt "Domain Name (contoso.com)"
+$orgname = Read-Host -Prompt "SharePoint Org Name (contoso-admin.sharepoint.com)"
 $cred = New-Object System.Management.Automation.PSCredential ($username,$Password)
 
+
+#Connections
 Set-ExecutionPolicy Unrestricted
 Install-Module -Name ExchangeOnlineManagement
 Import-Module ExchangeOnlineManagement
@@ -20,7 +23,11 @@ Connect-ExchangeOnline -Credential $cred
 Install-Module MSOnline
 Import-Module MSOnline
 Connect-MsolService -Credential $cred
-
+Install-Module -Name AzureAD
+Import-Module AzureAD
+Connect-AzureAD -Credential $cred
+Install-Module -Name Microsoft.Online.SharePoint.PowerShell 
+Connect-SPOService -Credential $cred -Url https://$orgname-admin.sharepoint.com -ModernAuth $true -AuthenticationUrl https://login.microsoftonline.com/organizations
 
 
     $header=@"
@@ -84,6 +91,8 @@ table tbody tr:nth-child(odd) {
 <!DOCTYPE html>
 <html>
 <head>
+   <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
     <title>Microsoft 365 | Security Assessment Reports</title>
     <link rel="icon" href="https://www.parlakyigit.net/wp-content/uploads/2023/01/M365Logo.png" sizes="192x192" />
 </head>
@@ -100,6 +109,8 @@ table tbody tr:nth-child(odd) {
 
 "@
 
+
+$MsolCompanyInformation=Get-MsolCompanyInformation | Select-Object DisplayName,@{Name="TechnicalNotificationEmails";Expression={$_.TechnicalNotificationEmails -join "`r`n"}},TelephoneNumber | ConvertTo-Html -As Table -PreContent '<h2>Organization information</h2>' | Out-String
 
 $MFAReport=Get-MsolUser -All | Where-Object {$_.StrongAuthenticationMethods.Count -eq 0 -and $_.BlockCredential -eq $False} | Select-Object -Property DisplayName,UserPrincipalName | ConvertTo-Html -As Table -PreContent '<h2>Disable Multifactor Authentication Users</h2>' | Out-String
 #https://learn.microsoft.com/tr-tr/azure/active-directory/authentication/howto-mfa-reporting
@@ -120,6 +131,8 @@ $aciklama_bir=echo 1 | ConvertTo-Html -As Table -PreContent '<table border=0 cel
 <br/>' | Out-String
 
 $GetMsolRoleMember=Get-MsolRoleMember -RoleObjectId $(Get-MsolRole -RoleName "Company Administrator").ObjectId | select DisplayName, EmailAddress | ConvertTo-Html -As Table -PreContent '<h2>Global Admin Users</h2>' | Out-String
+
+$ExtUsers=Get-MSOLUser -All | where {$_.UserType -eq "Guest"} | Select-Object DisplayName, UserPrincipalName, @{Name="AlternateEmailAddresses";Expression={$_.AlternateEmailAddresses -join "`r`n"}} | ConvertTo-Html -As Table -PreContent '<h2>External Users</h2>' | Out-String
 
 $MsolPasswordPolicy=Get-MsolPasswordPolicy -DomainName $domainname | select NotificationDays,ValidityPeriod | ConvertTo-Html -As Table -Fragment -PreContent '<h2>User Password Expried</h2>' | Out-String
 
@@ -184,6 +197,8 @@ $AdminAuditLogConfig=Get-AdminAuditLogConfig | select Name,UnifiedAuditLogIngest
 
 $ModernAuth=Get-OrganizationConfig | Select Name,OAuth* | ConvertTo-Html -As Table -PreContent '<h2>Modern Authentication Status </h2>' | Out-String
 
+$ExternalInOutlook=get-ExternalInOutlook | Select Enabled,AllowList | ConvertTo-Html -As Table -PreContent '<h2>Outlook External Sender Tag </h2>' | Out-String
+
 $Des='<br><table width="827" border="0">
 <tr>
     <td width="204" height="113"><img src="http://www.parlakyigit.net/wp-content/uploads/2017/04/MVP_Logo_Horizontal_Secondary_Blue288_CMYK_300ppi.png" width="308" height="124" align="left" /></td>
@@ -194,7 +209,12 @@ $Des='<br><table width="827" border="0">
   </tr>
 </table>' | Out-String
 
-Convertto-html -PreContent $MFAReport,$aciklama_bir,$GetMsolRoleMember,$MsolPasswordPolicy,$GetDkim,$SPF,$ForwardingUsers,$MailboxPer,$SharedMailbox,$blockcredential,$aciklama_yedi,$ExternalSharingCalender,$HostedOutboundSpamFilterPolicy,$BulkThreshold,$OutboundConnector,$InboundConnector,$whitelist,$IPAllowList,$RemoteDomainAutoForward,$TransportRule,$TransportRulesWhiteList,$TransportRulesForwarding,$AuditBypass,$FileFilter,$AdminAuditLogConfig,$ModernAuth,$Des -Head $header | Out-File "./M365SATReports.html"
+
+$AzureADApplication= Get-AzureADApplication | Select DisplayName,ObjectId | ConvertTo-Html -As Table -PreContent '<h2>Azure AD Applications </h2>' | Out-String 
+
+$SPOExtSharing= Get-SPOSite -Limit All | Where-Object {$_.SharingCapability -ne "Disabled"} | Select-Object Url, SharingCapability | ConvertTo-Html -As Table -PreContent '<h2>SharePoint Online External Sharing Sites </h2>' | Out-String
+
+Convertto-html -PreContent $MsolCompanyInformation,$MFAReport,$aciklama_bir,$GetMsolRoleMember,$ExtUsers,$MsolPasswordPolicy,$GetDkim,$SPF,$ForwardingUsers,$MailboxPer,$SharedMailbox,$blockcredential,$aciklama_yedi,$ExternalSharingCalender,$HostedOutboundSpamFilterPolicy,$BulkThreshold,$OutboundConnector,$InboundConnector,$whitelist,$IPAllowList,$RemoteDomainAutoForward,$TransportRule,$TransportRulesWhiteList,$TransportRulesForwarding,$AuditBypass,$FileFilter,$AdminAuditLogConfig,$ExternalInOutlook,$ModernAuth,$AzureADApplication,$SPOExtSharing,$Des -Head $header | Out-File "./M365SATReports.html"
 
 
 
