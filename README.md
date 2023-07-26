@@ -7,6 +7,11 @@ Note: M365SATReport recommends periodically checking and running the latest vers
 
 # Which headings does Microsoft 365 Security Assessment Reports look at?
 
+- Organization information-Yeni özellik (26.07.2023)
+- External Users-Yeni özellik (26.07.2023)
+- Outlook external sender tag-Yeni özellik (26.07.2023)
+- Azure AD Applications-Yeni özellik (26.07.2023)
+- SharePoint Online External Sharing Sites-Yeni özellik (26.07.2023)
 - Disable Multifactor Authentication Users
 - Global Admin Users
 - User Password Expried
@@ -60,6 +65,11 @@ Not : M365SATReport periyodik olarak belirli aralıklarla güncel sürümü kont
 
 # Microsoft 365 Security Assessment Reports Hangi Başlıklara bakmaktadır ? 
 
+- Organization information-Yeni özellik (26.07.2023)
+- External Users-Yeni özellik (26.07.2023)
+- Outlook external sender tag-Yeni özellik (26.07.2023)
+- Azure AD Applications-Yeni özellik (26.07.2023)
+- SharePoint Online External Sharing Sites-Yeni özellik (26.07.2023)
 - Disable Multifactor Authentication Users
 - Global Admin Users
 - User Password Expried
